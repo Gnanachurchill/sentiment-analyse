@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sentiment Analyzer</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">  <!-- Link to your CSS file -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function analyzeSentiment() {
+                var text = document.getElementById('textInput').value;
+                var resultDiv = document.getElementById('result');
+                var sentimentResult = document.getElementById('sentimentResult');
+
+                if (!text.trim()) {
+                    resultDiv.style.display = 'none';
+                    alert("Please enter some text for analysis.");
+                    return;
+                }
+
+                var positiveKeywords = ['happy', 'joy', 'love', 'good', 'great', 'wonderful'];
+                var negativeKeywords = ['sad', 'bad', 'hate', 'angry', 'disappointed', 'worried'];
+
+                var positiveCount = positiveKeywords.filter(keyword => text.toLowerCase().includes(keyword)).length;
+                var negativeCount = negativeKeywords.filter(keyword => text.toLowerCase().includes(keyword)).length;
+
+                var sentiment = 'Neutral';
+                if (positiveCount > negativeCount) {
+                    sentiment = 'Positive';
+                    sentimentResult.style.color = 'green';
+                } else if (negativeCount > positiveCount) {
+                    sentiment = 'Negative';
+                    sentimentResult.style.color = 'red';
+                } else {
+                    sentimentResult.style.color = 'gray';
+                }
+
+                sentimentResult.textContent = sentiment;
+                resultDiv.style.display = 'block';
+            }
+
+            // Dark mode toggle function
+            function toggleDarkMode() {
+                document.body.classList.toggle('bg-dark');
+                document.body.classList.toggle('text-white');
+                document.querySelector('.card').classList.toggle('bg-secondary');
+            }
+        </script>
+        <style>
+            #section1 {
+                height: 120px;
+            }
+            #section2 {
+               height: 2un ser20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+            <div class="card shadow-lg p-4" style="width: 80%; max-width: 600px;">
+                <div class="text-center" id="section1">
+                    <h1>Sentiment Analyzer</h1>
+                    <p>Analyze the mood of your text or speech!</p>
+                </div>
+                
+                <div class="mb-3">
+                    <textarea id="textInput" class="form-control" rows="5" placeholder="Type or paste your text here..."></textarea>
+                </div>
+                
+                <div class="mb-3 text-center">
+                    <button class="btn btn-primary" onclick="analyzeSentiment()">Analyze Sentiment</button>
+                </div>
+                
+                <!-- Real-time feedback -->
+                <div id="result" class="alert alert-info mt-4" style="display: none;">
+                    Sentiment: <strong id="sentimentResult">Neutral</strong>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                </div>
+
+                <footer class="text-center mt-5">
+                    <p class="text-muted">Made for clarify.</p>
+                </footer>
+            </div>
+        </div>
+        <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+            <div class="card shadow-lg p-4" style="width: 80%; max-width: 600px;">
+            <div class="bottom-text-section" id="section2">
+                <h4>Enhance Your Client Experience</h4>
+                <p>Learn the topics your clients are most happy or unhappy about.</p>
+                <p>Identify pain-points and detect patterns in client needs and behavior.</p>
+                <p>Quickly detect negative feedback and take action instantly.</p>
+            </div>
+        </div>
+    </body>
+</html>
