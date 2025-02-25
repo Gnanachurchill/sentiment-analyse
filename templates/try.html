@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspect Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .img-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2 class="text-center">Suspect Finder</h2>
+            <p class="text-center">Submit suspect details and image for analysis</p>
+
+            <!-- Suspect Form -->
+            <form id="suspectForm" action="submit_suspect.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="suspectName">Name:</label>
+                    <input type="text" id="suspectName" name="suspect_name" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="crimeDetails">Crime:</label>
+                    <textarea id="crimeDetails" name="crime_details" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="suspectDetails">Other Suspect Details:</label>
+                    <textarea id="suspectDetails" name="suspect_details" class="form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="suspectImage">Upload Image:</label>
+                    <input type="file" id="suspectImage" name="suspect_image" class="form-control" accept="image/*" required>
+                    <small class="form-text text-muted">Allowed file types: .jpg, .png, .jpeg</small>
+                </div>
+
+                <!-- Image Preview Section -->
+                <div class="form-group">
+                    <label>Image Preview:</label>
+                    <img id="imagePreview" class="img-preview" alt="Image Preview" />
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Suspect</button>
+            </form>
+
+            <!-- Error Message Section -->
+            <div id="errorMessage" class="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for Image Preview -->
+    <script>
+        // Show image preview on file input change
+        document.getElementById('suspectImage').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle form submission (you can add additional form validation if needed)
+        document.getElementById('suspectForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('suspectName').value.trim();
+            const crime = document.getElementById('crimeDetails').value.trim();
+            const image = document.getElementById('suspectImage').files[0];
+
+            // Basic validation for fields
+            if (name === "" || crime === "" || !image) {
+                document.getElementById('errorMessage').textContent = "Please fill all required fields and upload an image.";
+                return;
+            }
+
+            // If form validation passes, submit the form to the server
+            this.submit();
+        });
+    </script>
+</body>
+
+</html>

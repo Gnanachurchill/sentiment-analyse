@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Sentiment Analyzer</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Create an Account</h2>
+        <form id="signupForm">
+            <div class="input-group">
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" placeholder="Choose a username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" placeholder="Choose a password" required>
+            </div>
+
+            <button type="button" onclick="signup()">Sign Up</button>
+
+            <p class="signup-text">Already have an account? <a href="login.js">Login here</a></p>
+        </form>
+    </div>
+
+    <script src="signup.js"></script>
+</body>
+</html>
